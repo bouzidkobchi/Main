@@ -1,0 +1,411 @@
+<link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap.css') }}">
+<link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap-grid.css') }}">
+<link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap-grid.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap-grid.rtl.css') }}">
+<link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap-grid.rtl.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap-reboot.css') }}">
+<link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap-reboot.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap-reboot.rtl.css') }}">
+<link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap-reboot.rtl.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap-utilities.css') }}">
+<link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap-utilities.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap-utilities.rtl.css') }}">
+<link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap-utilities.rtl.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap.rtl.css') }}">
+<link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap.rtl.min.css') }}">
+<!--  -->
+<script src="{{ url_for('static',filename='js/bootstrap.bundle.js') }}"></script>
+<script src="{{ url_for('static',filename='js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ url_for('static',filename='js/bootstrap.esm.js') }}"></script>
+<script src="{{ url_for('static',filename='js/bootstrap.esm.min.js') }}"></script>
+<script src="{{ url_for('static',filename='js/bootstrap.js') }}"></script>
+<script src="{{ url_for('static',filename='js/bootstrap.min.js') }}"></script>
+<!--  -->
+
+<style>
+  body{
+    margin: 50px;
+  }
+
+</style>
+<!-- start navbar -->
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Navbar</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Features</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Pricing</a>
+          </li>
+        </ul>
+        <form class="d-flex" role="search">
+          <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success ms-3" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+  <!-- END NAVBAR -->
+  <!-- START OF 2 BUTTONS -->
+  <hr>
+  <button type="button" class="btn btn-primary btn-sm">Small button</button>
+  <button type="button" class="btn btn-secondary btn-sm">Small button</button>
+  <br>
+  <!-- END BUTTONS -->
+  <!-- SATRT GEY CARDS -->
+  <hr>
+  <div class="row">
+    <div class="col-sm-4">
+        <div class="card text-center">
+            <div class="card-header">
+            Featured
+            </div>
+            <div class="card-body">
+            <h5 class="card-title">Special title treatment</h5>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+            <div class="card-footer text-muted">
+            2 days ago
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="card text-center">
+          <div class="card-header">
+          Featured
+          </div>
+          <div class="card-body">
+          <h5 class="card-title">Special title treatment</h5>
+          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+          </div>
+          <div class="card-footer text-muted">
+          2 days ago
+          </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="card text-center">
+          <div class="card-header">
+          Featured
+          </div>
+          <div class="card-body">
+          <h5 class="card-title">Special title treatment</h5>
+          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+          </div>
+          <div class="card-footer text-muted">
+          2 days ago
+          </div>
+      </div>
+    </div>
+  </div>
+  <!-- END GREY CARDS -->
+  <!-- START FIRST ROW COLORED CARDS -->
+  <hr>
+  <div class="row mb-3">
+    <div class="col-sm-4">
+      <div class="card text-bg-primary">
+            <div class="card-header">Header</div>
+            <div class="card-body">
+              <h5 class="card-title">Primary card title</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+      </div>
+    </div>
+  
+    <div class="col-sm-4">
+      <div class="card text-bg-secondary" >
+          <div class="card-header">Header</div>
+          <div class="card-body">
+            <h5 class="card-title">Secondary card title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          </div>
+      </div>
+    </div>
+  
+    <div class="col-sm-4">
+      <div class="card text-bg-success" >
+          <div class="card-header">Header</div>
+          <div class="card-body">
+            <h5 class="card-title">Success card title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          </div>
+      </div>
+    </div>
+  </div>
+  <!-- END FIRST ROW COLORED CARDS -->
+  <!-- START SECOND ROW COLORED CARDS -->
+  <div class="row mb-3">
+    <div class="col-sm-4">
+      <div class="card text-bg-danger">
+          <div class="card-header">Header</div>
+          <div class="card-body">
+            <h5 class="card-title">Danger card title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          </div>
+      </div>
+    </div>
+  
+    <div class="col-sm-4">
+      <div class="card text-bg-warning">
+          <div class="card-header">Header</div>
+          <div class="card-body">
+            <h5 class="card-title">Warning card title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          </div>
+      </div>
+    </div>
+  
+    <div class="col-sm-4">
+      <div class="card text-bg-info">
+          <div class="card-header">Header</div>
+          <div class="card-body">
+            <h5 class="card-title">Info card title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          </div>
+      </div>
+    </div>
+  </div>
+  <!-- END SECOND ROW COLORED CARDS -->
+  <!-- START THIRD ROW COLORED CARDS -->
+  <div class="row mb-3">
+    <div class="col-sm-4">
+      <div class="card text-bg-light">
+          <div class="card-header">Header</div>
+          <div class="card-body">
+            <h5 class="card-title">Light card title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          </div>
+      </div>
+    </div>
+  
+    <div class="col-sm-4">
+      <div class="card text-bg-dark" >
+          <div class="card-header">Header</div>
+          <div class="card-body">
+            <h5 class="card-title">Dark card title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          </div>
+      </div>
+    </div>
+  </div>
+  <!-- START PROFILE NOTIFICTION ICON -->
+  <hr>
+  <button type="button" class="btn btn-primary position-relative">
+    Profile
+    <span class="position-absolute top-0 start-40 translate-middle p-2 bg-danger border border-light rounded-circle">
+      <span class="visually-hidden">New alerts</span>
+    </span>
+  </button>
+  <!-- END PROFILE NOTIFICTION ICON -->
+  <!-- START CHOOSE FILE -->
+  <hr>
+  <div class="container" style="width: 50%;">
+    <div class="mb-3">
+      <label for="formFile" class="form-label">Default file input example</label>
+      <input class="form-control" type="file" id="formFile">
+    </div>
+    <div class="mb-3">
+      <label for="formFileMultiple" class="form-label">Multiple files input example</label>
+      <input class="form-control" type="file" id="formFileMultiple" multiple>
+    </div>
+  </div>
+  <!-- END CHOOSE FILE -->
+  <!-- START INPUT 1 -->
+  <hr>
+  <form>
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Email address</label>
+      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+      <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">Password</label>
+      <input type="password" class="form-control" id="exampleInputPassword1">
+    </div>
+    <div class="mb-3 form-check">
+      <input type="checkbox" class="form-check-input" id="exampleCheck1">
+      <label class="form-check-label" for="exampleCheck1" >Check me out</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+  <!-- END INPUT 1 -->
+  <!-- START CHECKBOXES  -->
+  <hr>
+  <div class="form-check form-switch">
+    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+    <label class="form-check-label" for="flexSwitchCheckDefault">Default switch checkbox input</label>
+  </div>
+  <div class="form-check form-switch">
+    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
+    <label class="form-check-label" for="flexSwitchCheckChecked">Checked switch checkbox input</label>
+  </div>
+  <div class="form-check form-switch">
+    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDisabled" disabled>
+    <label class="form-check-label" for="flexSwitchCheckDisabled">Disabled switch checkbox input</label>
+  </div>
+  <div class="form-check form-switch">
+    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckCheckedDisabled" checked disabled>
+    <label class="form-check-label" for="flexSwitchCheckCheckedDisabled">Disabled checked switch checkbox input</label>
+  </div>
+  <!-- END CHECKBOXES  -->
+  <!-- START CHECK AND RADIOS -->
+  <hr>
+  <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off">
+  <label class="btn btn-outline-primary mb-2" for="btn-check-outlined">Single toggle</label><br>
+  
+  <input type="checkbox" class="btn-check" id="btn-check-2-outlined" checked autocomplete="off">
+  <label class="btn btn-outline-secondary mb-2" for="btn-check-2-outlined">Checked</label><br>
+  
+  <input type="radio" class="btn-check" name="options-outlined" id="success-outlined" autocomplete="off" checked>
+  <label class="btn btn-outline-success " for="success-outlined">Checked success radio</label>
+  
+  <input type="radio" class="btn-check" name="options-outlined" id="danger-outlined" autocomplete="off">
+  <label class="btn btn-outline-danger" for="danger-outlined">Danger radio</label>
+  
+  <!-- END CHECK AND RADIOS -->
+  <!-- SATRT INPUT 3 -->
+  <hr>
+  <div class="input-group mb-3">
+    <span class="input-group-text" id="basic-addon1">@</span>
+    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+  </div>
+  
+  <div class="input-group mb-3">
+    <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+    <span class="input-group-text" id="basic-addon2">@example.com</span>
+  </div>
+  
+  <label for="basic-url" class="form-label">Your vanity URL</label>
+  <div class="input-group mb-3">
+    <span class="input-group-text" id="basic-addon3">https://example.com/users/</span>
+    <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+  </div>
+  
+  <div class="input-group mb-3">
+    <span class="input-group-text">$</span>
+    <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+    <span class="input-group-text">.00</span>
+  </div>
+  
+  <div class="input-group mb-3">
+    <input type="text" class="form-control" placeholder="Username" aria-label="Username">
+    <span class="input-group-text">@</span>
+    <input type="text" class="form-control" placeholder="Server" aria-label="Server">
+  </div>
+  
+  <div class="input-group">
+    <span class="input-group-text">With textarea</span>
+    <textarea class="form-control " aria-label="With textarea"></textarea>
+  </div>
+  <!--  -->
+  <hr>
+  <div class="form-floating mb-3">
+    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+    <label for="floatingInput">Email address</label>
+  </div>
+  <div class="form-floating">
+    <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+    <label for="floatingPassword">Password</label>
+  </div>
+  <!--  -->
+  <hr>
+  <form class="row g-3">
+    <div class="col-md-6">
+      <label for="inputEmail4" class="form-label">Email</label>
+      <input type="email" class="form-control" id="inputEmail4">
+    </div>
+    <div class="col-md-6">
+      <label for="inputPassword4" class="form-label">Password</label>
+      <input type="password" class="form-control" id="inputPassword4">
+    </div>
+    <div class="col-12">
+      <label for="inputAddress" class="form-label">Address</label>
+      <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+    </div>
+    <div class="col-12">
+      <label for="inputAddress2" class="form-label">Address 2</label>
+      <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+    </div>
+    <div class="col-md-6">
+      <label for="inputCity" class="form-label">City</label>
+      <input type="text" class="form-control" id="inputCity">
+    </div>
+    <div class="col-md-4">
+      <label for="inputState" class="form-label">State</label>
+      <select id="inputState" class="form-select">
+        <option selected>Choose...</option>
+        <option>...</option>
+      </select>
+    </div>
+    <div class="col-md-2">
+      <label for="inputZip" class="form-label">Zip</label>
+      <input type="text" class="form-control" id="inputZip">
+    </div>
+    <div class="col-12">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="gridCheck">
+        <label class="form-check-label" for="gridCheck">
+          Check me out
+        </label>
+      </div>
+    </div>
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary">Sign in</button>
+    </div>
+  </form>
+  <!-- START TABLE -->
+  <hr>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">First</th>
+        <th scope="col">Last</th>
+        <th scope="col">Handle</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">1</th>
+        <td>Mark</td>
+        <td>Otto</td>
+        <td>@mdo</td>
+      </tr>
+      <tr>
+        <th scope="row">2</th>
+        <td>Jacob</td>
+        <td>Thornton</td>
+        <td>@fat</td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td colspan="2">Larry the Bird</td>
+        <td>@twitter</td>
+      </tr>
+    </tbody>
+  </table>
+  <!-- END TABLE -->
+</body>
+</html>

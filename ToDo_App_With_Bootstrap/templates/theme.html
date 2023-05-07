@@ -1,0 +1,56 @@
+{% include 'base.html' %}
+{% from 'forms.html' import navbar , new_note %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        {{navbar()}}
+        <br>
+  {% if notes[0].items %}
+
+      <!-- button of coloring -->
+    <a href="{% if theme == 1 %}{{ url_for('theme',number=2) }}{% else %}{{ url_for('theme',number=1) }}{% endif %}" style="text-decoration:none;color:black" class="btn btn-warning btn-sm">{% if theme == 1 %}Colored{% else %}Light{% endif %}</a>
+
+
+  {% set color = ['primary','secondary','success','danger','warning','info','light','dark'] %}
+  
+<hr>
+{% for i in range(notes | length) %}
+<div class="row mb-3">
+    {% for j  in range(notes[i].items | length) %}
+    {% set note = notes[i].items[j] %}
+    <div class="col-sm-4">
+        <div class="card text-bg-{% if not note.color or theme==1 %}{% if colored %}{{color[(i*3+j)%8]}}{% else %}light{% endif %}{% else %}{{note.color}}{% endif %} mb-4">
+              <div class="card-header">
+                {% if note.status %}{{note.status}}{% else %}not completed{% endif %}
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">{% if note.name %}{{note.name}}{% else %}Note Name{% endif %}</h5>
+                <p class="card-text">{% if note.content %}{{note.content}}{% else %}Some quick example text to build on the card title and make up the bulk of the card's content.{% endif %}</p>
+              </div>
+              <div class="card-footer ">
+                <!-- complete and uncomplete button -->
+                  <a href="{{ url_for('change_status',theme=theme,id=note.id) }}" style="text-decoration:none;color:white" class="btn btn-{% if note.status == 'completed' %}danger{% else %}success{% endif %} btn-sm">{% if note.status == 'completed' %}Uncompleted{% else %}Completed{% endif %}</a>
+                <!-- update button -->
+                  <a href="{{ url_for('update_note',theme=theme,id=note.id) }}" style="text-decoration:none;color:black" class="btn btn-info btn-sm">Update</a>
+                <!-- delete button -->
+                  <a href="{{ url_for('delete_note',theme=theme,id=note.id) }}" style="text-decoration:none;color:black" class="btn btn-warning btn-sm">Delete</a>
+              </div>
+        </div>
+      </div>
+    {% endfor %}
+</div>
+{% endfor %}
+{% else %}
+<p class="bg-warning p-2 col-sm-4 me-auto "> No notes to show</p>
+{% endif %}
+
+{{ new_note() }}
+
+</body>
+</html>

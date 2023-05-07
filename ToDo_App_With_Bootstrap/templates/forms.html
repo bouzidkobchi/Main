@@ -1,0 +1,51 @@
+{% macro navbar(text='Todo app') -%}
+  <nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+      <div class="collapse navbar-collapse" id="navbarText">
+        <div class="navbar-nav me-auto mb-2 mb-lg-0">
+          <div class="nav-item navbar-brand">{{text}}</div>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <!-- END NAVBAR -->
+{%- endmacro %}
+
+{% macro new_note(value=None,content=None,text_value=None) -%}
+{{navbar('create new note')}}
+<br>
+<form method="POST" >
+  <!--  -->
+  <div class="col-md-6 me-auto">
+    <label for="inputEmail4" class="form-label">Note Name</label>
+    <input type="text" class="form-control" id="inputEmail4" name="name" value="{% if value %}{{value}}{% endif %}" placeholder="Note Name">
+  </div>
+  <!--  -->
+  <br>
+  <!--  -->
+  <div class="col-md-6 me-auto">
+    <div class="input-group">
+      <span class="input-group-text bg-warning" style="border-radius:10px 0 0 10px ;height:300px">write note here</span>
+      <textarea class="form-control " aria-label="With textarea" style="border-radius:0 10px 10px 0 ;" maxlength="680" name="content" 
+      contenteditable aria-valuetext="{% if content %}content{% endif %}" placeholder="{% if number %}Some quick example text to build on the card title and make up the bulk of the card's content.{% endif %}">{% if text_value %}{{text_value}}{% endif %}</textarea>
+    </div>
+    
+  </div>
+  <!--  -->
+  <br>
+  {% set colors = ['primary','secondary','success','danger','warning','info','light','dark'] %}
+  <div class="col-md-6 me-auto">
+    <select class="form-select" aria-label="Default select example" name="note_color">
+      <option value="">select color</option>
+      {% for color in colors %}
+      <option value="{{color}}" class="bg-{{color}}">{{color}}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <br>
+  <!--  -->
+  <div class="col-md-6 me-auto">
+    <input type="submit" class="form-control bg-warning" value="save"></button>
+  </div>
+</form>
+{%- endmacro%}

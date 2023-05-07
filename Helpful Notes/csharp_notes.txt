@@ -1,0 +1,133 @@
+// foreach is faster more than usual for loop (by more than 20 time in arrays):
+# ---------------------------------------------------------------------------------------------- #
+    int[] x = Enumerable.Range(0,2000).ToArray() ;
+    int test = 0 ;
+    int x_length = x.Length ;
+    DateTime start = DateTime.Now ;
+    // the usual for loop :
+    for (int i = 0; i < x_length; i++)
+    {
+        test += x[i] ;
+
+    }
+    var end = DateTime.Now - start ;
+    Console.WriteLine($"the for loop token time : {end.Microseconds} microseconds .") ;
+
+    int test2 = 0 ;
+    DateTime start2 = DateTime.Now ;
+    // the foreach loop :
+    foreach (int number in x)
+    {
+        test2 += number ;
+
+    }
+    TimeSpan end2 = DateTime.Now - start2 ;
+    Console.WriteLine($"the foreach token time : {end2.Microseconds} microseconds .") ;
+# ---------------------------------------------------------------------------------------------- #
+    List<int> x = Enumerable.Range(0,2000).ToList() ;
+    int test = 0 ;
+    int x_length = x.Count ;
+    DateTime start = DateTime.Now ;
+    // the usual for loop :
+    for (int i = 0; i < x_length; i++)
+    {
+        test += x[i] ;
+
+    }
+    var end = DateTime.Now - start ;
+    Console.WriteLine($"the for loop token time : {end.Microseconds} microseconds .") ;
+
+    int test2 = 0 ;
+    DateTime start2 = DateTime.Now ;
+    // the foreach loop :
+    foreach (int number in x)
+    {
+        test2 += number ;
+
+    }
+    TimeSpan end2 = DateTime.Now - start2 ;
+    Console.WriteLine($"the foreach token time : {end2.Microseconds} microseconds .") ;
+# ---------------------------------------------------------------------------------------------- #
+
+# ---------------------------------------------------------------------------------------------- #
+// create a file :
+    var myFile = File.Create("test.txt") ;
+# ---------------------------------------------------------------------------------------------- #
+
+# ---------------------------------------------------------------------------------------------- #
+// read from file :
+    var myFileContent = File.ReadAllText("test.txt") ;
+# ---------------------------------------------------------------------------------------------- #
+
+# ---------------------------------------------------------------------------------------------- #
+// write to a file :
+    var myFileName = "test.xyz" ;
+    string content = "hello , finally it's work !" ;
+    File.WriteAllText(myFileName , content) ;
+# ---------------------------------------------------------------------------------------------- #
+
+# ---------------------------------------------------------------------------------------------- #
+// read file lines :
+    var myFileName = "test.xyz" ;
+    var Filelines = File.ReadAllLines(myFileName , System.Text.Encoding.UTF8) ;
+    foreach(var line in Filelines){
+        Console.WriteLine($"{line}") ;
+    }
+# ---------------------------------------------------------------------------------------------- #
+
+# ---------------------------------------------------------------------------------------------- #
+// create a file if not exists than write on it :
+    var myFileName = "test.xyz" ;
+    var test = File.CreateText(myFileName) ;
+    test.WriteLine("hello bouzid how are you") ;
+    test.Write("this is a test text !") ;
+    test.Close() ;
+# ---------------------------------------------------------------------------------------------- #
+
+# ---------------------------------------------------------------------------------------------- #
+// get file size :
+    var myFileName = "test.xyz" ;
+    var myFile = File.Open(myFileName , FileMode.Open) ;
+    var fileSize = myFile.Length ;
+    Console.WriteLine($"the file size is : {fileSize}") ;
+    myFile.Close() ;
+# ---------------------------------------------------------------------------------------------- #
+
+# ---------------------------------------------------------------------------------------------- #
+// get folder :
+    var dirInfo = Directory.CreateDirectory("myDir") ;
+    Directory.EnumerateFiles("myDir");
+    // print the list dir :
+    foreach (var file in Directory.EnumerateFiles("myDir"))
+    {
+        Console.WriteLine($"file name : {file} ") ;
+    }
+# ---------------------------------------------------------------------------------------------- #
+
+// i made illegal Constructor !!
+
+namespace Program {
+    class Program {
+        public static void Main(string[] args){
+
+        Test mytest = Test.illegalConstructor("bouzid") ;
+        Console.WriteLine(mytest.name) ;
+        }
+    }
+
+    class Test {
+        public string? name ;
+
+        private Test(string name){
+            this.name = name ;
+        }
+
+        public static Test illegalConstructor(string name){
+            return new Test(name) ;
+        }
+    }
+}
+
+# ---------------------------------------------------------------------------------------------- #
+ToString method == __str__ in python .
+# ---------------------------------------------------------------------------------------------- #

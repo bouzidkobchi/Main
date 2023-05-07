@@ -1,0 +1,492 @@
+1 - take configs from file :
+
+    app = Flask(__name__)
+    app.config.from_object('config')
+    app.run(port=app.config['PORT'],debug=True)
+#-----------------------------------------------------------------------------------------------------------------------------
+2 - redirect from url to another one :
+
+    # example :
+    if user == 'admin' :
+        return redirect(url_for('admin_site'))
+
+#-----------------------------------------------------------------------------------------------------------------------------
+3 - if you use method using {% extends 'parentfile.html' %} in jinja : the parent file will use as abstract base file (the main structure) .
+
+#-----------------------------------------------------------------------------------------------------------------------------
+4 - functions in jinja named 'macro' should be like :
+
+    {% macro function(param1,param2=default) -%} # focus on '-%}'
+        <!-- html code :
+        to use the param1 for example write {{ param1 }} .. etc
+        -->
+    {%- endmacro %} # also focus on '-%}'
+
+#-----------------------------------------------------------------------------------------------------------------------------
+5 - to use the previous macro wich in 'froms.html' file follow :
+
+{% from 'forms.html' import function %} # function mean function name 
+# to use the function it should used like a variable like :
+{{ function(param1 = 'hello') }} # she second 'param2' has default so you can avoid  
+
+#-----------------------------------------------------------------------------------------------------------------------------
+
+6 - if you write any thing in the sub-html-file inside the block (abstracted) it override the parent default , empty => default , else : you should use {{ super() }} to insert the default .
+
+#-----------------------------------------------------------------------------------------------------------------------------
+7 - if you have for example 'footer.html' and you need to use it use {% enclude 'footer.html' %}
+
+#-----------------------------------------------------------------------------------------------------------------------------
+8 - static files and templates :
+a - create folder named 'templates' to put HTML files in .
+b - create folder named 'static' than create JS , CSS , IMGs folders in to put the same files as name .
+c - to use static files :
+    href='{{ url_for( 'static' , filename = 'css/style.css' ) }}' # example
+
+#-----------------------------------------------------------------------------------------------------------------------------
+9 - print errors in forms :
+    {% for error in forms.field_name.errors %}
+    <h1>{{ error }}</h1>
+    {% endfor %}
+
+#-----------------------------------------------------------------------------------------------------------------------------
+10 - Don't foget , Don't foget , Don't foget to add methods = ['GET','POST'] in route decorator every where (^_^)
+
+#-----------------------------------------------------------------------------------------------------------------------------
+11 - to separate urls routes in your application use Blueprint , how let's descover :
+# your python file that you want to put your routing :
+
+    from flask import Blueprint
+    admin_app = Blueprint(name = 'admin_area',import_name=__name__,url_prefix='/admin') # look like Flask (^_^)
+    @admin_app.route('/')
+    def home() # this is home function of '/admin' relationed to url_prefix parameter to save time
+        return '<h1>this is admin area !! </h1>
+
+#-----------------------------------------------------------------------------------------------------------------------------
+12 - request object :
+# to call request object : 
+    from flask import request
+
+# we use request object to get user input like :
+# inside function :
+    if request.method == 'POST' # 'POST' capital letters  not 'post'
+        username = request.form['username'] # when use form in html and set name attribute = 'username' in html . 
+        # here write any command after .
+    
+#-----------------------------------------------------------------------------------------------------------------------------
+13 - cookies :
+# first cookies fellow dictionary structure like this cookie = Immutabledict{ 'key' : 'value' } < Immutable means you can't change it using the dictionary methode so you should use the suggested methods from flask .
+
+# to use cookies fellow this method :
+
+    @app.route('/cookie')
+    def new():
+        try  :
+            # if there is cookies show them :
+
+            response =  make_response('the value inside your cookie is : - {} '.format(request.cookies['name']))
+                        ^^^^^^^^^^^^^
+            # make_response function allow you to send response with other additions
+
+        except : # the cookie did not created yet :
+
+            response = make_response('setting cookie ...')
+            second = 1000 # meliseconde
+            min = 60 * second
+            hour = 60 * min
+            day = 24 * hour
+            
+            # make cookies and send them with responce :
+            response.set_cookie('name','bouzid kobchi',max_age=day)
+
+        return response
+
+# to delete cookies :
+    @app.route('/del_cookie')
+    def delete():
+        try :
+            # if there is cookies :
+            cookie = request.cookies['name']
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ this is only simple test to verify if there is cookies .
+        except : 
+            # if there is not cookies  :
+            return 'cookie not found'
+        
+        # delete cookies :
+        response = make_response('the cookie deleted seccufuly !')
+        response.delete_cookie('name')
+
+        return response
+
+#-----------------------------------------------------------------------------------------------------------------------------
+14 - some filters to learn :
+
+    {{ variable | default('value') }}                               # run if variable bot defined
+    {{ variable | first }}                                          # the first element in variable (iterable)
+    {{ variable | last }}                                           # the last element in variable (iterable)
+    {{ variable | length}}                                          # length
+    {{ variable | replace('old','new')}}                            # replace str by other
+    {{ [1, 2, 3, 4] | join(' ') }} / {{ variable | join('-') }}     # to join list items to one string
+    {{ variable | trim }}                                           # to delete white spaces in the begin & the end
+    {{x is lower}}                                                  # bool
+    {{x is upper}}                                                  # bool
+    {{x | upper}}                                                   # return upper case of x content
+    {{x | lower}}                                                   # return lower case of x content
+    {{x | e}}                                                       # auto escaping / special characters in html
+    {{x | safe }}                                                   # to use it as html code
+    {{ 5 is divisibleby 2 }}                                        # bool
+    -----------------------------------------------------------------------------------------------------
+    {% set numbers  = [1,2,3,4,5,6,7,8,9] %}
+    {% for num in numbers| reject('eq', 4) %} # there is also 'neq' ,'ge','gt','lt','le'
+    {{ num }}
+    {% endfor %}
+ 
+#-----------------------------------------------------------------------------------------------------------------------------
+15 - create custom filter :
+def my_custom_filter(self:str,string) :
+    return self.startswith(string) # boolean function or any type this is only example
+app.jinja_env.filters['strwith'] =  my_custom_filter  # name of filter in templates is strwith
+calling : 
+            {% if 'bouzid' | strwith('bou') %}
+            yes it is
+            {% else %}
+            no it is not
+            {% endif %}
+
+#-----------------------------------------------------------------------------------------------------------------------------
+16 - sessions :
+# the code is more helpful :
+
+@app.route('/session')
+def create_session():
+    # if user visit this site before :
+    if 'user_visit_count' in session : session['user_visit_count'] += 1
+    # create session if this is his first visit :
+    else : session['user_visit_count'] = 1
+    # show how many time you visit this site :
+    return 'this is your visit number {}'.format(session['user_visit_count'])
+
+@app.route('/delete_session')
+def delete_session() :
+    if 'user_visit_count' in session : 
+        del session['user_visit_count']
+        return 'session deleted seccufuly !! '
+        
+    return 'no session to delete '
+
+dont forget to use secret key like :
+
+    import os
+    SECRET_KEY = os.urandom(32)
+
+and should be defined in config.py .
+#-----------------------------------------------------------------------------------------------------------------------------
+17 - difference between sessions and cookies :
+
+- session is strored in the server side , but the cookies stored in the client side .
+- sessions are more secure but cookies are not .
+- sessions finished when you close your browser or logout the website
+- sessions can store more data ( more than 120 MB wow !! ) but cookies 4 KB at maximum .
+- cookies are text files can user see them but sessions are encrypted data .
+- cookies can still work for a long time but session is only in run time (look third note).
+
+#-----------------------------------------------------------------------------------------------------------------------------
+18 - redirect to url :
+return redirect ( endpoint = function_name_only )
+or :
+return redirect ( endpoint = the_link ) # 'http_addr/the_link'
+
+#-----------------------------------------------------------------------------------------------------------------------------
+19 - flash :
+
+to send data ( message )  with redirect we use flash as : from flask import flash
+# code :
+#--------------------------------------------
+#               python file :
+#--------------------------------------------
+    @app.route(f'/dashboard')
+    def dash() :
+        return render_template('index.html')
+
+    @app.route('/login')
+    def login_to_dash():
+
+        flash(message='hello bouzid')
+        return redirect('dashboard')
+#--------------------------------------------
+#               html file :
+#--------------------------------------------
+    {% set x = get_flashed_messages() %}
+    {% if x %}
+        {% for i in  x %}
+            {{i}}
+        {% endfor %}
+    {% endif %}
+#--------------------------------------------
+
+#-----------------------------------------------------------------------------------------------------------------------------
+
+# databases setup :
+1 - create database :
+    // main file :
+    # assign uri :
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'dialect+driver://user:password@host:port/database'
+
+    # stop track modifications :
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
+
+    // models file :
+    from flask_sqlalchemy import SQLALCHEMY 
+    from main import app 
+    db = SQLALCHEMY(app)
+
+2 - create tables :
+# to create table == create class :
+    classname (db.Model) :
+        field_name = db.Column(db.Integer , *args , **kwargs)
+        attributes to know :
+        primary_key:bool , autoincrement:str( 'auto' for automatic increment ) , nullable:bool , unique:bool 
+
+3 - working with queries :
+# to use database don't forget to use app_context() method always :
+with app.app_context() :
+    # your statements 
+
+4 - Queries methods :
+// add item :
+classname.query.add() => to add database object ..add(classname(field_name='any_thing',**kwargs))
+db.session.commit()
+
+// find item :
+classname.query.filter_by(**kwargs) => return object it self like : classname.query.filter_by(name='ahmed') ### but with :
+    # ..all() to return list of all items .
+    # ..first() to return first item .
+    # ..count() to return int .
+    # .query[start:stop:step] # return list of items from start by step to stop . 
+    # .query.order_by(<model_name>.<field>) # to order by field data . (.desc() attribute means from the new to old )
+    # .query.order_by(<model_name>.<field>.desc) # (.desc() attribute means from the new to old )
+
+// update item :
+# find then assign :
+classname.query.filter_by(**kwargs).fisrt() =  classname(**new_kwargs_value)
+
+# or :
+
+item = classname.query.filter_by(**kwargs).fisrt()
+item.attr = <new_value>
+db.session.commit() # to excute .
+
+# or (the best) :
+
+    with app.app_context() :
+        User.query.filter_by(attr = <value>)**.first() or .all()**.update({'other_attr' : 'new_value'}) => return nbr of rows updated 
+        db.session.commit()
+
+// delete item :
+
+# find then delete :
+item = classname.query.filter_by(**kwargs).fisrt()
+db.session.delete(item)
+db.session.commit() # to excute .
+
+# or (the best) :
+
+    with app.app_context() :
+        User.query.filter_by(attr = <value>)**.first() or .all()**.delete() => return nbr of rows updated 
+        db.session.commit()
+
+#-----------------------------------------------------------------------------------------------------------------------------
+21 - migrations :
+# to use migrations in flask we install flask_migrate using pip .
+# than define variable migrate in config as < migrate = Migrate(app) > .
+# than use terminal to migrate like :
+
+    $ export FLASK_APP=main.py              # to define flask application
+    $ flask db init                         # to generate migrations folder inside app .
+    $ flask db migrate                      # sometimes it could help .
+    $ flask db upgrade                      # to migrate db changes .
+
+to delete model migrate + upgrade .
+to add model upgrade only .
+
+#-----------------------------------------------------------------------------------------------------------------------------
+22 - one to many relationships :
+
+class user (db.Model) :
+    __tablename__ = 'any_title'
+    id = db.Column(db.Integer,primary_key=True,autoincrement='auto')
+    name = db.Column(db.String(100))
+    posts = db.relationship('Post'<this is second class name>,backref='user_back') # backref means the name in the background (as you want)
+
+class Post(db.Model) :
+    id = db.Column(db.Integer,primary_key=True,autoincrement='auto')
+    content = db.Column(db.String(100))
+    user_id = db.Column(db.Integer , db.ForeignKey('user_back.id')) # this should follow the fisrt class primary key
+
+# to use it later :
+
+    b = user(name='bouzid')
+    post = Post(content='bla bla')
+    post.user_back=b 
+    db.session.add(b)
+    db.session.add(post)
+
+
+#-----------------------------------------------------------------------------------------------------------------------------
+23 - pagination :
+to get pagination use :
+    courses = course.query.paginate( per_page=6 , page = 2 ) # this will put 6 courses per page and show the second page courses .
+
+    in jinja :
+
+        .... for course in courses.items ....
+
+#-----------------------------------------------------------------------------------------------------------------------------
+24 - url query language :
+example :
+
+    @app.route('/text')
+    def home() :
+        request.args.get( 'param1' , <default> , type = <any_type> ) # int or str
+    
+    url = 'localhos:/text?param1=5' # this mean param1 = 5 
+
+    href='/text?page=3' # create url to the function with param1 value .
+
+    or (best) :
+    {{ url_for('func_name',param1 = 4 ) }}
+
+    # the current num is courses.page => courses is query with paginate defined before .
+
+#-----------------------------------------------------------------------------------------------------------------------------
+25 - flask login :
+
+from flask_login import UserMixin 
+# first add UserMixin to db login model <=> the model of user info as exapmle :
+
+# create variable named 'login_manager' : 
+    login_manager = Login_Manager(app)
+    login_manager.login_view = '<login endpoint : function which login from>'
+
+# create function which define user session from id which is the primary_key like this :
+
+@login_manager.user_loader                                                                            | this function know the current user
+def any_fun_name(id) : return <model_name>.query.get(int(id)) -> because id saved as string <- / return <model_name>.query.filter_by(id=id) | from his id using created session .
+
+# when you use form to enter user info use 'login_user()' function and add user which you search about in the database like :
+    user = User.query.filter_by(email=email)
+
+# then add login_user(user , remember=True , duration=<default> ) # by this function a sesssion automaticly will be created .z
+
+# when you make personal profile you should change page from user to another , so to do that use current_user object from flask_login like :
+# by the way login_required decorator use login_user function sessions to work :
+
+@app.route('/profile')
+@login_required
+def home() :
+    return render_template('profile.html',user=current_user) # current_user object *
+
+# and there is logout_user function to finish the session like :
+
+@app.route('/logout')
+@login_required
+def logout() :
+    logout_user()
+    return redirect(url_for('main.login'))
+
+
+# if the user now is loged in which mean he is authenticated , he should not see the login and signup buttons for exapmle and in the opposite he should not see a profile picture so to do that :
+{% if user.is_authenticated %}
+    # butons or any thing else 
+{% endif %}
+
+#-----------------------------------------------------------------------------------------------------------------------------
+26 - the full website size :
+
+# def website_size(file_type='all') :
+#     import os
+#     # assign size
+#     size = 0
+
+#     # assign folder path
+#     Folderpath = os.getcwd()
+
+#     # get size
+#     for path, dirs, files in os.walk(Folderpath):
+#         for f in files:
+#             if file_type == 'all' :
+#                 fp = os.path.join(path, f)
+#                 size += os.path.getsize(fp)
+#             elif f.endswith(file_type) :
+#                 fp = os.path.join(path, f)
+#                 size += os.path.getsize(fp)
+
+
+#     # display size
+#     # print("Folder size: " + str(size)+'Bytes')
+#     return size
+
+# def convert_bytes(bytes_number):
+#     tags = [ "Byte", "Kilobyte", "Megabyte", "Gigabyte", "Terabyte" ]
+#     i = 0
+#     double_bytes = bytes_number
+#     while (i < len(tags) and  bytes_number >= 1024):
+#             double_bytes = bytes_number / 1024.0
+#             i = i + 1
+#             bytes_number = bytes_number / 1024
+#     return str(round(double_bytes, 2)) + " " + tags[i]
+
+# print(convert_bytes(website_size()))
+#-----------------------------------------------------------------------------------------------------------------------------
+27 - one to one relationship :
+
+first class
+class parent(db.Model) :
+    id = ..
+    name = ..
+    wife = db.relationship('wife',backref='husband' , uselist= False ) # uselist true => many , False => one 
+
+class wife(db.Model) :
+    id = ..
+    name = ..
+    husband_id = db.Column(db.Integer , 'parent.id')
+
+# note : if we add new wife object with the some husband_id the first one will take NULL as instead .
+
+# to avoid this (the last case) use unique=True attribute inside husband_id field .
+
+#-----------------------------------------------------------------------------------------------------------------------------
+28 - many to many relaionships  :
+
+# to do that you should create a new table not a model like this :
+collect_table = db.Table( '<table name>' ,
+    db.Column('<first filed name>',db.<type>,db.ForeignKey('<table foreignkey like : user.id >')) ,
+    db.Column('<second filed name>',db.<type>,db.ForeignKey('<table foreignkey like : post.id >')) ,
+)
+
+# now create one to many relationship modles but add secondary table which is the collect_table :
+
+class user(db.Model) :
+    id = ..(primary_key)
+    .. = ..
+    created_posts = db.Relationship('<second table> : post' ,secondary=collect_table , backref='my_posts' )
+
+# now create second table :
+
+class post(db.Model) :
+    id = ..
+    .. = ..
+    authers = db.Column(db.Integer , db.ForeignKey('user.id'))
+
+# first add new elements without relations :
+
+with app.app_context() :
+    user1 = user(..=..)
+    post1 = post(..=..)
+    db.session.add_all([user1,post1])
+    db.commit()
+
+# then create relaionships like :
+
+with app.app_context() :
+    user1.my_posts.append(post1)
